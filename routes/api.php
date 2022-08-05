@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\v1\AuthController;
 use App\Http\Controllers\Api\v1\CategoriesController;
 use App\Http\Controllers\Api\v1\ProductsController;
 use Illuminate\Http\Request;
@@ -14,6 +15,11 @@ Route::prefix('v1')->group(function () {
         return ['status' => 'success', 'version' => '1.0.0'];
     });
 
-    Route::resource('categories', CategoriesController::class);
-    Route::resource('products', ProductsController::class);
+    Route::post('auth/register', [AuthController::class, 'register']);
+    Route::post('auth/login', [AuthController::class, 'login']);
+
+    Route::middleware('auth.api')->group(function () {
+        Route::resource('categories', CategoriesController::class);
+        Route::resource('products', ProductsController::class);
+    });
 });

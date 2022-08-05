@@ -15,9 +15,9 @@ class ProductsController extends Controller
         $this->setProducts();
     }
 
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return ['products' => $this->products];
+        return response()->json(['products' => $this->products], 200);
     }
 
     public function show(int $id): JsonResponse
