@@ -15,11 +15,11 @@ Route::prefix('v1')->group(function () {
         return ['status' => 'success', 'version' => '1.0.0'];
     });
 
-    Route::post('auth/register', [AuthController::class, 'register']);
-    Route::post('auth/login', [AuthController::class, 'login']);
-
-    Route::middleware('auth.api')->group(function () {
-        Route::resource('categories', CategoriesController::class);
-        Route::resource('products', ProductsController::class);
-    });
+//    Route::post('auth/register', [AuthController::class, 'register']);
+//    Route::post('auth/login', [AuthController::class, 'login']);
+//
+//    Route::middleware('auth.api')->group(function () {
+//        Route::resource('categories', CategoriesController::class);
+//        Route::resource('products', ProductsController::class);
+//    });
 });
