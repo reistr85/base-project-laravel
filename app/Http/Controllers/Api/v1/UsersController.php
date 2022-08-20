@@ -7,6 +7,7 @@ use App\Services\Users\CreateUserService;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class UsersController extends Controller
 {
@@ -28,8 +29,11 @@ class UsersController extends Controller
             $res = $this->create_user_service->execute($data);
             DB::commit();
 
-            return response()->json(['user' => $res['user'], 'token' => $res['token']], 201);
+            return response()->json($res, 201);
         }catch (Exception $e){
+            DB::rollBack();
+            return response()->json(['errors' => $e->getMessage()], $e->getCode());
+        } catch (Throwable $e) {
             DB::rollBack();
             return response()->json(['errors' => $e->getMessage()], $e->getCode());
         }

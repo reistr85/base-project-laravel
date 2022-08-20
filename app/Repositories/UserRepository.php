@@ -21,6 +21,6 @@ class UserRepository implements IUserRepository
 
     public function findByEmail(string $email): ?User
     {
-        return $this->model->whereEmail($email)->first();
+        return $this->model->with('customer')->whereEmail($email)->first();
     }
 }
