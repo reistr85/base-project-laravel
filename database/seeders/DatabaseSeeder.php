@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        if(env('APP_ENV') === 'local') {
+            $this->call(CategoriesSeeder::class);
+            $this->call(SizesSeeder::class);
+        }
     }
 }

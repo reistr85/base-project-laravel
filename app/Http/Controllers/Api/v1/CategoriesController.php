@@ -3,60 +3,29 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Services\Categories\FindAllService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 
 class CategoriesController extends Controller
 {
-    private $categories;
+    private FindAllService $find_all_service;
 
-    public function __construct()
+    public function __construct(
+        FindAllService $find_all_service
+    )
     {
-        $this->setCategories();
+        $this->find_all_service = $find_all_service;
     }
 
-    public function index(): array
+    public function index(): JsonResponse
     {
-        return ['categories' => $this->categories];
-    }
+        try {
+            $categories = $this->find_all_service->execute();
 
-    private function setCategories()
-    {
-        $this->categories = [
-            [
-                'id' => 1,
-                'name' => 'Sutiãs',
-                'created_at' => '2022-08-04 00:00:00',
-                'updated_at' => '2022-08-04 00:00:00',
-                'deleted_at' => null,
-            ],
-            [
-                'id' => 2,
-                'name' => 'Calchinhas',
-                'created_at' => '2022-08-04 00:00:00',
-                'updated_at' => '2022-08-04 00:00:00',
-                'deleted_at' => null,
-            ],
-            [
-                'id' => 3,
-                'name' => 'Vestidos',
-                'created_at' => '2022-08-04 00:00:00',
-                'updated_at' => '2022-08-04 00:00:00',
-                'deleted_at' => null,
-            ],
-            [
-                'id' => 4,
-                'name' => 'Lingerrier',
-                'created_at' => '2022-08-04 00:00:00',
-                'updated_at' => '2022-08-04 00:00:00',
-                'deleted_at' => null,
-            ],
-            [
-                'id' => 5,
-                'name' => 'Cuecas',
-                'created_at' => '2022-08-04 00:00:00',
-                'updated_at' => '2022-08-04 00:00:00',
-                'deleted_at' => null,
-            ]
-        ];
+            return response()->json(['categories' => $categories], 200);
+        }catch (Exception $e){
+            return response()->json(['errors' => $e->getMessage()], $e->getCode());
+        }
     }
 }
