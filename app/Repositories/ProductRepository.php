@@ -38,4 +38,9 @@ class ProductRepository implements IProductRepository
 
         return $query->with('category', 'sizes.size', 'images')->paginate($this->per_page);
     }
+
+    public function findById(int $id)
+    {
+        return $this->model->find($id)->with('category', 'sizes.size', 'images')->first();
+    }
 }
