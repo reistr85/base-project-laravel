@@ -29,6 +29,13 @@ class ProductRepository implements IProductRepository
         if(Request::input('category_id'))
             $query = $query->where('category_id', Request::input('category_id'));
 
+        if(Request::input('search')) {
+            $query = $query->where(function ($q){
+                $q->where('name', 'like', "%" . Request::input('search') . "%");
+                $q->orWhere('description', 'like', "%" . Request::input('search') . "%");
+            });
+        }
+
         return $query->with('category', 'sizes.size', 'images')->paginate($this->per_page);
     }
 }
