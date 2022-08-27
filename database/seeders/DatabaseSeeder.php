@@ -14,8 +14,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         if(env('APP_ENV') === 'local') {
+            $this->call(UsersSeeder::class);
             $this->call(CategoriesSeeder::class);
             $this->call(SizesSeeder::class);
+            $this->call(ProductsSeeder::class);
+            $this->call(ProductSizesSeeder::class);
+            $this->call(ProductImagesSeeder::class);
         }
     }
 }

@@ -51,6 +51,7 @@ class RouteServiceProvider extends ServiceProvider
 
                     Route::middleware('ProtectedRouteAuth')->group(function() {
                         Route::prefix($this->prefix)->group(base_path("{$this->base_path}/categories.php"));
+                        Route::prefix($this->prefix)->group(base_path("{$this->base_path}/products.php"));
                     });
                 });
         });

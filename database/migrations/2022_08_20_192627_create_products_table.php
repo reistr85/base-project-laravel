@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('category_id')->unsigned();
             $table->string('name');
             $table->string('description');
             $table->decimal('price_wholesale', 10, 2);
@@ -27,6 +28,13 @@ class CreateProductsTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table
+                ->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
 
             $table
                 ->foreign('created_by')
