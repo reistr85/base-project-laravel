@@ -33,6 +33,7 @@ class ProductRepository implements IProductRepository
             $query = $query->where(function ($q){
                 $q->where('name', 'like', "%" . Request::input('search') . "%");
                 $q->orWhere('description', 'like', "%" . Request::input('search') . "%");
+                $q->orWhere('ref', 'like', "%" . Request::input('search') . "%");
             });
         }
 
