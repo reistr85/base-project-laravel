@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('category_id')->unsigned();
             $table->string('name');
             $table->string('description');
+            $table->string('ref');
             $table->decimal('price_wholesale', 10, 2);
             $table->decimal('price_retail', 10, 2);
 

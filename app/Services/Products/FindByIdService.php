@@ -26,6 +26,7 @@ class FindByIdService
             'description' => $product->description,
             'price_wholesale' => $product->price_wholesale,
             'price_retail' => $product->price_retail,
+            'ref' => $product->ref,
             'category' => ['id' => $product->category->id, 'name' => $product->category->name],
             'sizes' => $product->sizes->map(function($item) {
                 return $item->size->label;

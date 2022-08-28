@@ -30,6 +30,7 @@ class FindAllService
                     'description' => $item->description,
                     'price_wholesale' => $item->price_wholesale,
                     'price_retail' => $item->price_retail,
+                    'ref' => $item->ref,
                     'category' => ['id' => $item->category->id, 'name' => $item->category->name],
                     'sizes' => $item->sizes->map(function($item) {
                         return $item->size->label;
